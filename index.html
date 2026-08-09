@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        :root {
+            --bg-color: #F6F8FC;
+            --nav-color: #FFFFFF;
+            --card-color: #FFFFFF;
+
+            --border-color: #E4EAF3;
+
+            --text-color: #222831;
+            --text-muted: #7B8794;
+
+            --accent-color: #5B8DEF;
+            --accent-hover: #4B7BE8;
+
+            --success: #34C759;
+            --danger: #FF5A5F;
+
+            --shadow: 0 12px 30px rgba(91, 141, 239, .12);
+        }
+
+        body {
+            background: var(--bg-color);
+        }
+
+        /* NAVBAR */
+
+        nav {
+            width: 100%;
+            background: var(--nav-color);
+            height: 170px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .05);
+        }
+
+        .para {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .head {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav img {
+            width: 38px;
+            height: 38px;
+        }
+
+        .inp {
+            width: 45vw;
+            max-width: 550px;
+            min-width: 250px;
+
+            height: 48px;
+
+            padding: 0 20px;
+
+            border-radius: 30px;
+
+            border: 2px solid var(--border-color);
+
+            background: white;
+
+            font-size: 16px;
+
+            color: var(--text-color);
+
+            transition: .3s;
+        }
+
+        .inp::placeholder {
+            color: var(--text-muted);
+        }
+
+        .inp:focus {
+            outline: none;
+            border-color: var(--accent-color);
+
+            box-shadow: 0 0 0 4px rgba(91, 141, 239, .15);
+        }
+
+        .btn {
+            width: 44px;
+            height: 44px;
+
+            background: var(--accent-color);
+
+            border-radius: 50%;
+
+            padding: 10px;
+
+            cursor: pointer;
+
+            transition: .25s;
+
+            box-shadow: 0 6px 18px rgba(91, 141, 239, .35);
+        }
+
+        .btn:hover {
+            transform: scale(1.08);
+            background: var(--accent-hover);
+        }
+
+        ul {
+            margin: 35px auto;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 18px;
+        }
+
+        .tasks {
+
+            width: 55vw;
+            max-width: 700px;
+            min-width: 320px;
+
+            min-height: 70px;
+
+            background: var(--card-color);
+
+            border: 1px solid var(--border-color);
+
+            border-radius: 18px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 22px;
+
+            box-shadow: var(--shadow);
+
+            transition: .25s;
+        }
+
+        .tasks[hidden] {
+            display: none;
+        }
+
+        .tasks:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow: 0 16px 35px rgba(91, 141, 239, .18);
+        }
+
+        .wrap {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+        }
+
+        .text {
+
+            font-size: 18px;
+
+            color: var(--text-color);
+
+            font-weight: 600;
+        }
+
+
+        .delete {
+
+            display: flex;
+
+            align-items: center;
+        }
+
+        .delete img {
+
+            width: 24px;
+
+            height: 24px;
+
+            opacity: .55;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+        .delete img:hover {
+
+            opacity: 1;
+
+            transform: scale(1.2);
+        }
+
+        input[type="checkbox"] {
+
+            appearance: none;
+
+            width: 22px;
+
+            height: 22px;
+
+            border-radius: 50%;
+
+            border: 2px solid #C7D2E3;
+
+            background: white;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+            position: relative;
+        }
+
+        input[type="checkbox"]:hover {
+
+            border-color: var(--accent-color);
+        }
+
+        input[type="checkbox"]:checked {
+
+            background: var(--success);
+
+            border-color: var(--success);
+        }
+
+        input[type="checkbox"]:checked::after {
+
+            content: "✓";
+
+            color: white;
+
+            font-weight: bold;
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -55%);
+        }
+
+        @media(max-width:768px) {
+
+            .inp {
+                width: 60vw;
+            }
+
+            .tasks {
+                width: 90vw;
+            }
+
+            .para {
+                font-size: 1.6rem;
+            }
+
+            .head {
+                gap: 12px;
+            }
+        }
+
+        .change {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div class="para">ADD TASK</div>
+            <div class="head">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Syu_3ldGYmrIBX0V51LXN3NTfRNFKMgS6uJ-sYnB1TmsoAj5Ic8nKy73&s=10"
+                    alt="">
+                <input class="inp" type="text" placeholder="Enter Your Task">
+                <img class="btn" src="assets/plus.svg" alt="">
+            </div>
+        </nav>
+        <ul class="list">
+
+        </ul>
+    </div>
+
+
+    <script>
+        let savedata = JSON.parse(localStorage.getItem("li")) || []
+        savedata.forEach(e => {
+            // let read = document.querySelector(".inp")
+            let text = e.text
+            if (text == "") {
+                return
+            }
+            let task = document.createElement("li")
+            task.setAttribute("class", "tasks")
+            task.innerHTML = ` <div class="wrap">
+                                     <div class = "check"> <input type="checkbox"> </div>
+                                     <div class = "text"> ${text} </div>
+                               </div>
+                             <div class="delete" > <img src="assets/delete.svg" alt=""> </div>
+ `
+            document.querySelector(".list").append(task)
+
+            task.querySelector(".delete").addEventListener("click", () => {
+                //    task.setAttribute("hidden", "hidden")
+                task.remove()
+                store()
+            })
+            task.querySelector("input[type='checkbox']").addEventListener("click", () => {
+                task.querySelector(".text").classList.toggle("change")
+                store()
+            })
+             if (e.ischeck) {
+             task.querySelector("input").checked = true
+             task.querySelector(".text").classList.add("change")
+            }
+
+        })
+
+        function addtask() {
+            let read = document.querySelector(".inp")
+            let text = read.value
+            if (text == "") {
+                return
+            }
+            let task = document.createElement("li")
+            task.setAttribute("class", "tasks")
+            task.innerHTML = ` <div class="wrap">
+                                     <div class = "check"> <input type="checkbox"> </div>
+                                     <div class = "text"> ${text} </div>
+                               </div>
+                             <div class="delete" > <img src="assets/delete.svg" alt=""> </div>
+ `
+            document.querySelector(".list").append(task)
+            read.value = ""
+            store()
+
+            task.querySelector(".delete").addEventListener("click", () => {
+                //    task.setAttribute("hidden", "hidden")
+                task.remove()
+                store()
+            })
+
+            task.querySelector("input[type='checkbox']").addEventListener("click", () => {
+                task.querySelector(".text").classList.toggle("change")
+                store()
+            })
+        }
+
+        document.querySelector(".btn").addEventListener("click", () => {
+            return addtask()
+        })
+        document.querySelector(".inp").addEventListener("keyup", (e) => {
+            if (e.key == "Enter") {
+                return addtask()
+            }
+        })
+
+        function store() {
+            let arr = []
+            document.querySelectorAll(".tasks").forEach(e => {
+                let obj = {
+                    text: e.querySelector(".text").innerHTML,
+                    ischeck: e.querySelector("input").checked
+                }
+                arr.push(obj)
+            })
+            localStorage.setItem("li", JSON.stringify(arr))
+        }
+
+
+    </script>
+</body>
+
+</html>
